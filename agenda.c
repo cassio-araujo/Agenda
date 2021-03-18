@@ -8,11 +8,11 @@ typedef struct
     char nome[50], telefone[15], email[50], nascimento[10], observacao[10];
 } agenda;
 
-agenda contato[2];
+agenda contato[10];
 
 int listar()
 {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 10; i++)
     {
         printf("Codigo: %d\n", contato[i].codigo);
 
@@ -33,7 +33,7 @@ int listar()
 
 int cadastrar()
 {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 10; i++)
     {
         printf("Insira o codigo unico: ");
         scanf("%d", &contato[i].codigo);
