@@ -10,10 +10,45 @@ typedef struct
 
 agenda contato[10];
 
-int listar()
+//Função destinada para filtrar contatos da agenda.
+void buscar()
+{
+    int codigoBusca, i;
+
+    printf("*****************************************************\n");
+    printf("Insira codigo para buscar:");
+    scanf("%i", &codigoBusca);
+    printf("*****************************************************\n");
+    for (i = 0; i < 10; i++)
+    {
+
+        if (codigoBusca == contato[i].codigo)
+        {
+            printf("Codigo: %d\n", contato[i].codigo);
+
+            printf("Nome: %s\n", contato[i].nome);
+
+            printf("Telefone: %s\n", contato[i].telefone);
+
+            printf("E-mail: %s\n", contato[i].email);
+
+            printf("Data Nascimento: %s\n", contato[i].nascimento);
+
+            printf("Observacoes: %s\n", contato[i].observacao);
+
+            printf("\n");
+            break;
+        }
+    }
+    system("pause");
+}
+
+//Função para listar os contatos inseridos.
+void listar()
 {
     for (int i = 0; i < 10; i++)
     {
+        printf("*****************************************************\n");
         printf("Codigo: %d\n", contato[i].codigo);
 
         printf("Nome: %s\n", contato[i].nome);
@@ -31,16 +66,19 @@ int listar()
     system("pause");
 }
 
-int cadastrar()
+//Função destinada para cadastrar os contatos. 
+void cadastrar()
 {
     for (int i = 0; i < 10; i++)
     {
+        printf("*****************************************************\n");
         printf("Insira o codigo unico: ");
         scanf("%d", &contato[i].codigo);
         while (contato[i].codigo <= 0)
         {
             printf("Informe um codigo maior que zero\n");
             printf("Insira o codigo: ");
+            fflush(stdin);
             scanf("%d", &contato[i].codigo);
         }
 
@@ -63,11 +101,11 @@ int cadastrar()
         printf("Observacoes: ");
         fflush(stdin);
         gets(contato[i].observacao);
-
     }
 }
 
-int menu()
+//Função de menu, cada opção chama uma função.
+void menu()
 
 {
     int op;
@@ -93,17 +131,23 @@ int menu()
     case 2:
         listar();
         break;
+    case 3:
+        buscar();
+        break;
+
     default:
         break;
     }
 }
 
-main()
+//Raiz do codigo, fica em looping no menu chamando funções até ser encerrado.
+int main()
 {
 
-    int op, i;
+    int op;
     while (op > 0)
     {
         menu();
     }
+    return 0;
 }
