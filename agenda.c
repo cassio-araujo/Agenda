@@ -5,10 +5,62 @@
 typedef struct
 {
     int codigo;
-    char nome[50], telefone[15], email[50], nascimento[10], observacao[10];
+    char nome[50], telefone[15], email[50], nascimento[15], observacao[100];
 } agenda;
 
 agenda contato[10];
+
+//Função destinada para alterar dados do contato através do código único.
+void alterar()
+{
+    int codigoBusca, i;
+
+    printf("*****************************************************\n");
+    printf("Insira codigo do contato que deseja alterar:");
+    scanf("%i", &codigoBusca);
+    printf("*****************************************************\n");
+    for (i = 0; i < 10; i++)
+    {
+
+        if (codigoBusca == contato[i].codigo)
+        {
+
+            printf("Insira o nome:");
+            fflush(stdin);
+            gets(contato[i].nome);
+
+            printf("Insira o telefone:");
+            fflush(stdin);
+            gets(contato[i].telefone);
+
+            printf("Insira o email:");
+            fflush(stdin);
+            gets(contato[i].email);
+
+            printf("Insira a data de nascimento:");
+            fflush(stdin);
+            gets(contato[i].nascimento);
+
+            printf("Insira a observacao:");
+            fflush(stdin);
+            gets(contato[i].observacao);
+
+            printf("\n");
+
+            printf("Contato alterado com sucesso !");
+
+            printf("\n");
+
+            break;
+        }
+        else
+        {
+            printf("Contato nao encontrado\n");
+            break;
+        }
+    }
+    system("pause");
+}
 
 //Função destinada para filtrar contatos da agenda.
 void buscar()
@@ -66,7 +118,7 @@ void listar()
     system("pause");
 }
 
-//Função destinada para cadastrar os contatos. 
+//Função destinada para cadastrar os contatos.
 void cadastrar()
 {
     for (int i = 0; i < 10; i++)
@@ -133,6 +185,9 @@ void menu()
         break;
     case 3:
         buscar();
+        break;
+    case 4:
+        alterar();
         break;
 
     default:
