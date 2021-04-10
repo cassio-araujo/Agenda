@@ -10,19 +10,46 @@ typedef struct
 
 agenda contato[10];
 
+//Função destinada para zerar o codigo único (referente ao apagar contato).
+void excluir()
+{
+    int codigo, i;
+
+    printf("Insira codigo do contato que deseja excluir:");
+    scanf("%d", &codigo);
+    printf("Contato excluido!\n");
+
+    for (i = 0; i < 10; i++)
+    {
+        if (contato[i].codigo == codigo)
+        {
+            contato[i].codigo = 0;
+            break;
+        }
+    }
+    {
+        if (i == 0)
+            ;
+        {
+            ("Contato nao encontrado");
+        }
+    }
+}
+
 //Função destinada para alterar dados do contato através do código único.
 void alterar()
 {
-    int codigoBusca, i;
+    int buscaAlterar, encontrado = 0, i;
 
     printf("*****************************************************\n");
     printf("Insira codigo do contato que deseja alterar:");
-    scanf("%i", &codigoBusca);
+    scanf("%i", &buscaAlterar);
     printf("*****************************************************\n");
+
     for (i = 0; i < 10; i++)
     {
 
-        if (codigoBusca == contato[i].codigo)
+        if (buscaAlterar == contato[i].codigo)
         {
 
             printf("Insira o nome:");
@@ -48,16 +75,15 @@ void alterar()
             printf("\n");
 
             printf("Contato alterado com sucesso !");
-
+            encontrado = 1;
             printf("\n");
 
             break;
         }
-        else
-        {
-            printf("Contato nao encontrado\n");
-            break;
-        }
+    }
+    if (encontrado == 0)
+    {
+        printf("Contato nao encontrado.\n");
     }
     system("pause");
 }
@@ -98,8 +124,9 @@ void buscar()
 //Função para listar os contatos inseridos.
 void listar()
 {
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 10 && contato[i].codigo != 0; i++)
     {
+
         printf("*****************************************************\n");
         printf("Codigo: %d\n", contato[i].codigo);
 
@@ -123,36 +150,41 @@ void cadastrar()
 {
     for (int i = 0; i < 10; i++)
     {
-        printf("*****************************************************\n");
-        printf("Insira o codigo unico: ");
-        scanf("%d", &contato[i].codigo);
-        while (contato[i].codigo <= 0)
+        if (contato[i].codigo == 0)
         {
-            printf("Informe um codigo maior que zero\n");
-            printf("Insira o codigo: ");
-            fflush(stdin);
+            printf("*****************************************************\n");
+            printf("Insira o codigo unico: ");
             scanf("%d", &contato[i].codigo);
+            while (contato[i].codigo <= 0)
+            {
+
+                printf("Informe um codigo maior que zero\n");
+                printf("Insira o codigo: ");
+                fflush(stdin);
+                scanf("%d", &contato[i].codigo);
+            }
+
+            printf("Insira o nome: ");
+            fflush(stdin);
+            gets(contato[i].nome);
+
+            printf("Insira o telefone: ");
+            fflush(stdin);
+            gets(contato[i].telefone);
+
+            printf("Insira o email: ");
+            fflush(stdin);
+            gets(contato[i].email);
+
+            printf("Insira data de nascimento: ");
+            fflush(stdin);
+            gets(contato[i].nascimento);
+
+            printf("Observacoes: ");
+            fflush(stdin);
+            gets(contato[i].observacao);
+            break;
         }
-
-        printf("Insira o nome: ");
-        fflush(stdin);
-        gets(contato[i].nome);
-
-        printf("Insira o telefone: ");
-        fflush(stdin);
-        gets(contato[i].telefone);
-
-        printf("Insira o email: ");
-        fflush(stdin);
-        gets(contato[i].email);
-
-        printf("Insira data de nascimento: ");
-        fflush(stdin);
-        gets(contato[i].nascimento);
-
-        printf("Observacoes: ");
-        fflush(stdin);
-        gets(contato[i].observacao);
     }
 }
 
@@ -161,48 +193,47 @@ void menu()
 
 {
     int op;
-
-    printf("\n*****************************************************\n");
-    printf("*                  AGENDA TELEFONICA                *\n");
-    printf("*****************************************************\n");
-    printf("* 1 - CADASTRAR                                     *\n");
-    printf("* 2 - LISTAR                                        *\n");
-    printf("* 3 - BUSCAR                                        *\n");
-    printf("* 4 - ALTERAR                                       *\n");
-    printf("* 5 - EXCLUIR                                       *\n");
-    printf("* 0 - SAIR                                          *\n");
-    printf("*****************************************************\n");
-
-    scanf("%d", &op);
-
-    switch (op)
+    while (op > 0)
     {
-    case 1:
-        cadastrar();
-        break;
-    case 2:
-        listar();
-        break;
-    case 3:
-        buscar();
-        break;
-    case 4:
-        alterar();
-        break;
+        printf("\n*****************************************************\n");
+        printf("*                  AGENDA TELEFONICA                *\n");
+        printf("*****************************************************\n");
+        printf("* 1 - CADASTRAR                                     *\n");
+        printf("* 2 - LISTAR                                        *\n");
+        printf("* 3 - BUSCAR                                        *\n");
+        printf("* 4 - ALTERAR                                       *\n");
+        printf("* 5 - EXCLUIR                                       *\n");
+        printf("* 0 - SAIR                                          *\n");
+        printf("*****************************************************\n");
 
-    default:
-        break;
+        scanf("%d", &op);
+
+        switch (op)
+        {
+        case 1:
+            cadastrar();
+            break;
+        case 2:
+            listar();
+            break;
+        case 3:
+            buscar();
+            break;
+        case 4:
+            alterar();
+            break;
+        case 5:
+            excluir();
+            break;
+        case 0:
+            return 0;
+            break;
+        }
     }
 }
 
 //Raiz do codigo, fica em looping no menu chamando funções até ser encerrado.
 int main()
 {
-
-    int op;
-    while (op > 0)
-    {
-        menu();
-    }
-    return 0;
+    menu();
 }
